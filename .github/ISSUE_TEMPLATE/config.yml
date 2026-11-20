@@ -1,5 +1,5 @@
 blank_issues_enabled: false
 contact_links:
   - name: Security report
-    url: https://github.com/MFDI-hub/uv-scripts/blob/main/SECURITY.md
+    url: https://github.com/MFDI-hub/tool-shed/blob/main/SECURITY.md
     about: Report a security vulnerability privately (see SECURITY.md).

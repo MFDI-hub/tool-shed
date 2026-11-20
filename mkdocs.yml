@@ -1,11 +1,11 @@
-site_name: "uv-scripts"
+site_name: "tool-shed"
 site_description: "Portable C CLI tools, built for every platform."
 # Canonical URL for the sitemap. docs.yml publishes a GitHub Pages project site.
-# For Read the Docs, use https://uv-scripts.readthedocs.io/ instead.
-site_url: https://MFDI-hub.github.io/uv-scripts/
+# For Read the Docs, use https://tool-shed.readthedocs.io/ instead.
+site_url: https://MFDI-hub.github.io/tool-shed/
 
-repo_url: https://github.com/MFDI-hub/uv-scripts
-repo_name: MFDI-hub/uv-scripts
+repo_url: https://github.com/MFDI-hub/tool-shed
+repo_name: MFDI-hub/tool-shed
 edit_uri: edit/main/docs/
 
 theme:
@@ -21,7 +21,7 @@ plugins:
       enable_creation_date: true
       fallback_to_build_date: true
   # Pulls docstrings straight out of the package. Use it in a page with:
-  #   ::: uv_scripts
+  #   ::: tool_shed
   - mkdocstrings:
       default_handler: python
       handlers:

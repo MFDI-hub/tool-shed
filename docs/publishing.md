@@ -60,7 +60,7 @@ for Copier usage and repo layout.
    - On each site, register this GitHub repo as a new “pending” trusted publisher.
 
    - Enter the project name (`tool-shed`), owner (`MFDI-hub`), repo
-     (`uv-scripts`), and `publish.yml` as the workflow name. Leave the
+     (`tool-shed`), and `publish.yml` as the workflow name. Leave the
      environment name blank.
 
 4. **Create a first release** so versioning starts on `0.x` (optional but recommended):

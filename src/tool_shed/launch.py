@@ -105,10 +105,10 @@ def _candidate_files(tool, directory):
 def find_binary(tool):
     """Return the path to `tool`, or None if it is not on disk.
 
-    Search order: ``UV_SCRIPTS_BIN``, packaged ``uv_scripts/_native/``,
+    Search order: ``TOOL_SHED_BIN``, packaged ``tool_shed/_native/``,
     then ``dist/bin/<host-triple>/`` in a source checkout.
     """
-    env = os.environ.get("UV_SCRIPTS_BIN")
+    env = os.environ.get("TOOL_SHED_BIN")
     if env:
         override = Path(env).expanduser()
         if override.is_file():
@@ -140,7 +140,7 @@ def resolve_binary(tool):
     raise SystemExit(
         "error: native binary for {0!r} not found.\n"
         "Build it with: {1}\n"
-        "Or set UV_SCRIPTS_BIN to the directory (or file) that contains it.".format(tool, hint)
+        "Or set TOOL_SHED_BIN to the directory (or file) that contains it.".format(tool, hint)
     )
 
 

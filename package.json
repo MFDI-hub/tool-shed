@@ -1,9 +1,9 @@
 {
-  "name": "uv-scripts",
+  "name": "tool-shed",
   "version": "0.0.0-semantically-released",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/MFDI-hub/uv-scripts.git"
+    "url": "https://github.com/MFDI-hub/tool-shed.git"
   }
 }

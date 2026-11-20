@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for your interest in contributing to **uv-scripts**!
+Thanks for your interest in contributing to **tool-shed**!
 
 ## Getting started
 

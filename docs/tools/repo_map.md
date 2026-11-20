@@ -70,7 +70,7 @@ uv run repo_map --dir src --ext py --out outputs/builds/map.txt
 Boost the file you are editing:
 
 ```shell
-uv run repo_map --dir src --ext py --seed src/uv_scripts/launch.py
+uv run repo_map --dir src --ext py --seed src/tool_shed/launch.py
 ```
 
 Tiny budget:

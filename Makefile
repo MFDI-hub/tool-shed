@@ -32,7 +32,7 @@ security:
 	uv audit --locked --preview-features audit-command
 
 profile:
-	uv run --group profiling py-spy record -o profile.svg -- python -m uv_scripts
+	uv run --group profiling py-spy record -o profile.svg -- python -m tool_shed
 
 docs:
 	uv run mkdocs serve

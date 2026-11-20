@@ -23,9 +23,9 @@ uv run python scripts/build_native.py
 uv run sync_chosen_files --once
 uv run watch_run --dir src -- pytest -q
 uv run repo_map --ext py
-uv run related --file src/uv_scripts/launch.py --ext py
+uv run related --file src/tool_shed/launch.py --ext py
 uv run quiet_exec -- pytest -q
-uv run slice src/uv_scripts/launch.py --name find_binary
+uv run slice src/tool_shed/launch.py --name find_binary
 uv run churn --dir src --ext py
 uv run diff_syms --dir src --ext py
 ```

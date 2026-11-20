@@ -41,13 +41,13 @@ def foo():
 One function:
 
 ```shell
-uv run slice src/uv_scripts/launch.py --name find_binary
+uv run slice src/tool_shed/launch.py --name find_binary
 ```
 
 Line range:
 
 ```shell
-uv run slice src/uv_scripts/launch.py --lines 80-110
+uv run slice src/tool_shed/launch.py --lines 80-110
 ```
 
 Several names:

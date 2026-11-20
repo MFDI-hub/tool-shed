@@ -6,8 +6,8 @@ from pathlib import Path
 
 import pytest
 
-launch_mod = importlib.import_module("uv_scripts.launch")
-from uv_scripts.launch import (
+launch_mod = importlib.import_module("tool_shed.launch")
+from tool_shed.launch import (
     TOOLS,
     exe_name,
     find_binary,
@@ -91,7 +91,7 @@ def test_find_repo_root_missing() -> None:
 def test_find_binary_env_file(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     binary = tmp_path / exe_name("sync_chosen_files")
     binary.write_bytes(b"x")
-    monkeypatch.setenv("UV_SCRIPTS_BIN", str(binary))
+    monkeypatch.setenv("TOOL_SHED_BIN", str(binary))
     found = find_binary("sync_chosen_files")
     assert found == binary
 
@@ -99,12 +99,12 @@ def test_find_binary_env_file(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -
 def test_find_binary_env_dir(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     binary = tmp_path / exe_name("sync_chosen_files")
     binary.write_bytes(b"x")
-    monkeypatch.setenv("UV_SCRIPTS_BIN", str(tmp_path))
+    monkeypatch.setenv("TOOL_SHED_BIN", str(tmp_path))
     assert find_binary("sync_chosen_files") == binary
 
 
 def test_find_binary_packaged(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.delenv("UV_SCRIPTS_BIN", raising=False)
+    monkeypatch.delenv("TOOL_SHED_BIN", raising=False)
     native = tmp_path / "_native"
     native.mkdir()
     binary = native / exe_name("sync_chosen_files")
@@ -118,7 +118,7 @@ def test_find_binary_packaged(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -
 
 
 def test_find_binary_dist(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.delenv("UV_SCRIPTS_BIN", raising=False)
+    monkeypatch.delenv("TOOL_SHED_BIN", raising=False)
     repo = tmp_path / "repo"
     triple_dir = repo / "dist" / "bin" / host_triple()
     triple_dir.mkdir(parents=True)
@@ -137,7 +137,7 @@ def test_find_binary_dist(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> No
 
 
 def test_find_binary_missing(monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.delenv("UV_SCRIPTS_BIN", raising=False)
+    monkeypatch.delenv("TOOL_SHED_BIN", raising=False)
     assert find_binary("definitely-not-a-tool") is None
 
 

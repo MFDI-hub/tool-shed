@@ -1,53 +1,53 @@
 # API Reference
 
-Generated from the docstrings in `uv_scripts` by
+Generated from the docstrings in `tool_shed` by
 [mkdocstrings](https://mkdocstrings.github.io/). Anything without a docstring
 shows up blank — which is a useful nudge to write one.
 
-## `uv_scripts`
+## `tool_shed`
 
-::: uv_scripts
+::: tool_shed
 
-## `uv_scripts.launch`
+## `tool_shed.launch`
 
-::: uv_scripts.launch
+::: tool_shed.launch
 
-## `uv_scripts.sync_chosen_files`
+## `tool_shed.sync_chosen_files`
 
-::: uv_scripts.sync_chosen_files
+::: tool_shed.sync_chosen_files
 
-## `uv_scripts.watch_run`
+## `tool_shed.watch_run`
 
-::: uv_scripts.watch_run
+::: tool_shed.watch_run
 
-## `uv_scripts.skeleton_dump`
+## `tool_shed.skeleton_dump`
 
-::: uv_scripts.skeleton_dump
+::: tool_shed.skeleton_dump
 
-## `uv_scripts.hash_tree`
+## `tool_shed.hash_tree`
 
-::: uv_scripts.hash_tree
+::: tool_shed.hash_tree
 
-## `uv_scripts.repo_map`
+## `tool_shed.repo_map`
 
-::: uv_scripts.repo_map
+::: tool_shed.repo_map
 
-## `uv_scripts.related`
+## `tool_shed.related`
 
-::: uv_scripts.related
+::: tool_shed.related
 
-## `uv_scripts.quiet_exec`
+## `tool_shed.quiet_exec`
 
-::: uv_scripts.quiet_exec
+::: tool_shed.quiet_exec
 
-## `uv_scripts.slice`
+## `tool_shed.slice`
 
-::: uv_scripts.slice
+::: tool_shed.slice
 
-## `uv_scripts.churn`
+## `tool_shed.churn`
 
-::: uv_scripts.churn
+::: tool_shed.churn
 
-## `uv_scripts.diff_syms`
+## `tool_shed.diff_syms`
 
-::: uv_scripts.diff_syms
+::: tool_shed.diff_syms

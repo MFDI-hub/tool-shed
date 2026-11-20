@@ -23,8 +23,8 @@ zig-out/
 .uv-cache/
 
 # Staged native binaries (copied here only while packaging wheels)
-src/uv_scripts/_native/*
-!src/uv_scripts/_native/.gitkeep
+src/tool_shed/_native/*
+!src/tool_shed/_native/.gitkeep
 
 # Distribution / packaging
 .Python

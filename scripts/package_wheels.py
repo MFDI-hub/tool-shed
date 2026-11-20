@@ -14,7 +14,7 @@ from pathlib import Path
 
 from native_meta import REPO_ROOT, Target, binary_path, load_targets, load_tools
 
-NATIVE_PKG = REPO_ROOT / "src" / "uv_scripts" / "_native"
+NATIVE_PKG = REPO_ROOT / "src" / "tool_shed" / "_native"
 DIST = REPO_ROOT / "dist"
 
 

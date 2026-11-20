@@ -1,4 +1,4 @@
-# uv-scripts
+# tool-shed
 
 A hub of command-line tools written in C and installed as Python console scripts.
 Zig cross-compiles each tool for every OS/CPU that can install a platform wheel

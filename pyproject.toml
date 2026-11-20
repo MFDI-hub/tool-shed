@@ -50,26 +50,24 @@ dependencies = []
 # fast = ["orjson>=3.10"]
 
 [project.urls]
-Repository = "https://github.com/MFDI-hub/uv-scripts"
+Repository = "https://github.com/MFDI-hub/tool-shed"
 # Homepage = "https://..."
 # Documentation = "https://..."
 
 [project.scripts]
 # Prefer the module name (snake_case); hyphens in a console script name can
-# break the generated .exe shim on Windows. PyPI name is tool-shed; import
-# package stays uv_scripts (this GitHub repo).
-tool_shed = "uv_scripts.uv_scripts:main"
-uv_scripts = "uv_scripts.uv_scripts:main"
-sync_chosen_files = "uv_scripts.sync_chosen_files:main"
-watch_run = "uv_scripts.watch_run:main"
-skeleton_dump = "uv_scripts.skeleton_dump:main"
-hash_tree = "uv_scripts.hash_tree:main"
-repo_map = "uv_scripts.repo_map:main"
-related = "uv_scripts.related:main"
-quiet_exec = "uv_scripts.quiet_exec:main"
-slice = "uv_scripts.slice:main"
-churn = "uv_scripts.churn:main"
-diff_syms = "uv_scripts.diff_syms:main"
+# break the generated .exe shim on Windows.
+tool_shed = "tool_shed.cli:main"
+sync_chosen_files = "tool_shed.sync_chosen_files:main"
+watch_run = "tool_shed.watch_run:main"
+skeleton_dump = "tool_shed.skeleton_dump:main"
+hash_tree = "tool_shed.hash_tree:main"
+repo_map = "tool_shed.repo_map:main"
+related = "tool_shed.related:main"
+quiet_exec = "tool_shed.quiet_exec:main"
+slice = "tool_shed.slice:main"
+churn = "tool_shed.churn:main"
+diff_syms = "tool_shed.diff_syms:main"
 
 
 # ---- Dependency groups (PEP 735) ----
@@ -161,8 +159,8 @@ style = "pep440"
 bump = false
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/uv_scripts"]
-artifacts = ["src/uv_scripts/_native/*"]
+packages = ["src/tool_shed"]
+artifacts = ["src/tool_shed/_native/*"]
 
 [tool.hatch.build.targets.sdist]
 include = [
@@ -184,7 +182,7 @@ include = [
 # Typically 88 (black standard) or 100 (wide).
 line-length = 100
 # Dev/tests/scripts stay on a current Python. The installed launcher in
-# src/uv_scripts/ is written for 3.6 (see per-file-ignores UP/TC).
+# src/tool_shed/ is written for 3.6 (see per-file-ignores UP/TC).
 target-version = "py311"
 # Also lint docstring code blocks and notebooks once you have them:
 # extend-include = ["*.ipynb"]
@@ -233,16 +231,16 @@ ignore = [
 # T201: CLIs and build scripts print status.
 # S603/S607: they also legitimately shell out to zig, uv, and the C binaries.
 # Installed launcher must parse on Python 3.6: no postponed annotations, no |.
-"src/uv_scripts/**" = ["UP", "TC", "RUF005"]
-"src/uv_scripts/uv_scripts.py" = ["T201"]
-"src/uv_scripts/launch.py" = ["S603", "S606", "S607"]
+"src/tool_shed/**" = ["UP", "TC", "RUF005"]
+"src/tool_shed/cli.py" = ["T201"]
+"src/tool_shed/launch.py" = ["S603", "S606", "S607"]
 "scripts/**" = ["T201", "S603", "S607"]
 "devtools/**" = ["S603", "S607"]
 # An __init__.py re-exporting a public API looks like unused imports.
 "src/**/__init__.py" = ["F401"]
 
 [tool.ruff.lint.isort]
-known-first-party = ["uv_scripts", "native_meta"]
+known-first-party = ["tool_shed", "native_meta"]
 combine-as-imports = true
 
 [tool.ruff.format]
