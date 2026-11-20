@@ -61,7 +61,7 @@ def test_is_musl_returns_bool() -> None:
         ("Linux", "armv7l", True, "arm-linux-musleabihf"),
         ("Linux", "aarch64", True, "aarch64-linux-musl"),
         ("Linux", "riscv64", False, "riscv64-linux-gnu.2.27"),
-        ("Linux", "ppc64le", False, "powerpc64le-linux-gnu.2.17"),
+        ("Linux", "ppc64le", False, "powerpc64le-linux-gnu.2.19"),
         ("Linux", "s390x", False, "s390x-linux-gnu.2.17"),
         ("Linux", "loongarch64", False, "loongarch64-linux-gnu.2.36"),
         ("FreeBSD", "amd64", False, "x86_64-freebsd"),
