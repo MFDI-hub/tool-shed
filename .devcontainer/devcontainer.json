@@ -1,0 +1,41 @@
+{
+  "name": "Python (uv)",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "features": {
+    // Community feature. Astral publishes ghcr.io/astral-sh/uv, and this
+    // feature installs that binary into the devcontainer base image.
+    // https://github.com/astral-sh/uv/issues/8737
+    "ghcr.io/va-h/devcontainers-features/uv:1": {
+      "version": "0.13.8"
+    }
+  },
+  "postCreateCommand": "uv sync && uv run pre-commit install && uv run pre-commit install --hook-type commit-msg",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "astral-sh.ty",
+        "charliermarsh.ruff",
+        "tamasfe.even-better-toml"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+        "editor.formatOnSave": true,
+        "[python]": {
+          "editor.defaultFormatter": "charliermarsh.ruff",
+          "editor.codeActionsOnSave": {
+            "source.fixAll.ruff": "always",
+            "source.organizeImports.ruff": "always"
+          }
+        }
+      }
+    }
+  },
+  "forwardPorts": [8000],
+  "portsAttributes": {
+    "8000": {
+      "label": "MkDocs",
+      "onAutoForward": "notify"
+    }
+  }
+}

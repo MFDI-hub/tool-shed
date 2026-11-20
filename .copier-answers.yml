@@ -1,0 +1,10 @@
+# Changes here will be overwritten by Copier. Do not edit manually.
+_commit: 2f56324
+_src_path: https://github.com/MFDI-hub/python-template
+copyright_year: '2026'
+package_author_email: dogkanicen@gmail.com
+package_author_name: mfdi
+package_description: Portable C tool for uv scripts, built for every platform.
+package_github_org: MFDI-hub
+package_module: uv_scripts
+package_name: uv-scripts

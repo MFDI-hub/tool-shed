@@ -1,0 +1,73 @@
+# Makefile for easy development workflows.
+# See docs/development.md for docs.
+# Note GitHub Actions call uv directly, not this Makefile.
+
+.DEFAULT_GOAL := default
+
+.PHONY: default install lint test test-random docs docs-build upgrade build clean pre-commit sync sync-once profile security
+
+default: install lint test 
+
+install:
+	# `uv sync` installs the default groups (dev + docs); extras are opt-in.
+	uv sync
+	uv run pre-commit install
+	uv run pre-commit install --hook-type commit-msg
+
+lint:
+	uv run python devtools/lint.py
+
+test:
+	uv run pytest -n auto --cov --cov-report=term-missing
+
+# Two runs, to catch order dependence and flaky timing:
+test-random:
+	uv run pytest
+	uv run pytest -p no:randomly
+
+# Dependency hygiene without the rest of the linters. uv audit reads uv.lock
+# (same command as CI). It is a preview command and needs uv 0.10.8 or newer.
+security:
+	uv run deptry .
+	uv audit --locked --preview-features audit-command
+
+profile:
+	uv run --group profiling py-spy record -o profile.svg -- python -m uv_scripts
+
+docs:
+	uv run mkdocs serve
+
+docs-build:
+	uv run mkdocs build --strict
+
+upgrade:
+	uv lock --upgrade
+	uv sync
+
+build:
+	uv build
+
+pre-commit:
+	uv run pre-commit run --all-files
+
+sync:
+	uv run python scripts/sync_chosen_files.py
+
+sync-once:
+	uv run python scripts/sync_chosen_files.py --once
+
+clean:
+	-rm -rf dist/
+	-rm -rf site/
+	-rm -rf *.egg-info/
+	-rm -rf .pytest_cache/
+	-rm -rf .mypy_cache/
+	-rm -rf .template-check/
+	-rm -rf profile.svg
+	-rm -rf .ruff_cache/
+	-rm -rf .coverage
+	-rm -rf coverage.xml
+	-rm -rf htmlcov/
+	-rm -rf outputs/
+	-rm -rf .venv/
+	-find . -type d -name "__pycache__" -exec rm -rf {} +
