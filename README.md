@@ -1,43 +1,21 @@
 # uv-scripts
 
-> **This is the initial readme for your project from the
-> [python-template](https://github.com/MFDI-hub/python-template) Copier template.** Fill it in and
-> delete this message!
-> Below are general setup instructions that you may remove or keep and adapt for your
-> project.
+Portable tool for [uv](https://docs.astral.sh/uv/) scripts. The program is written in C and released as a build for each platform, so the same binary can be used everywhere. It will later be added to [python-template](https://github.com/MFDI-hub/python-template) as a tool.
 
-* * *
+## Status
 
-## Project Docs
+This repository is scaffolded from [python-template](https://github.com/MFDI-hub/python-template). The C sources and the per-platform release builds come next.
 
-For how to install uv and Python, see [installation.md](docs/installation.md).
+## Development
 
-For development workflows, see [development.md](docs/development.md).
-
-For instructions on publishing to PyPI, see [publishing.md](docs/publishing.md).
-
-## Quickstart
+Until the C build lands, this checkout uses the template's uv workflow.
 
 ```shell
-# Install project dependencies + git hooks:
-make install
-# or: uv sync && uv run pre-commit install
-
-# Run quality checks:
-uv run python devtools/lint.py
-uv run pytest -n auto --cov --cov-report=term-missing
-
-# Build package artifacts:
-uv build
+uv sync
+uv run pre-commit install && uv run pre-commit install --hook-type commit-msg
+uv run pytest -n auto --cov
 ```
 
-## Lockfile (`uv.lock`)
+Commit `uv.lock`. CI runs `uv sync --locked` and fails when the lockfile is missing or stale.
 
-Commit `uv.lock`. CI runs `uv sync --locked` and fails when the lockfile is missing
-or stale. The lockfile pins this repository's development environment. Published
-installs resolve from the version ranges in `pyproject.toml`.
-
-* * *
-
-*This project was built from
-[python-template](https://github.com/MFDI-hub/python-template).*
+*This project was built from [python-template](https://github.com/MFDI-hub/python-template).*
