@@ -118,8 +118,6 @@ def host_triple() -> str:
             return "riscv64-linux-gnu.2.27"
         if cpu == "loongarch64":
             return "loongarch64-linux-gnu.2.36"
-        if cpu == "powerpc64le":
-            return "powerpc64le-linux-gnu.2.19"
         return f"{cpu}-linux-gnu.2.17"
     return f"{cpu}-{system}"
 

@@ -25,7 +25,7 @@ def test_every_target_has_a_unique_wheel_tag() -> None:
         "macosx_11_0_arm64",
         "manylinux_2_17_x86_64",
         "manylinux_2_17_i686",
-        "manylinux_2_19_ppc64le",
+        "musllinux_1_2_ppc64le",
         "manylinux_2_17_s390x",
         "manylinux_2_36_loongarch64",
         "musllinux_1_2_x86_64",

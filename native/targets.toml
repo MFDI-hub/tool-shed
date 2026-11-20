@@ -4,7 +4,8 @@
 # install path that would pick these tags.
 #
 # Linux GNU uses the oldest glibc Zig can give that arch so the wheel installs
-# on more distros. RISC-V needs 2.27; ppc64le needs 2.19; LoongArch needs 2.36.
+# on more distros. RISC-V needs 2.27; LoongArch needs 2.36. Zig 0.17 cannot
+# link glibc on ppc64le (__printfieee128), so that CPU is musl-only.
 
 zig_version = "0.17.1"
 
@@ -71,13 +72,6 @@ static = false
 [[target]]
 triple = "riscv64-linux-gnu.2.27"
 wheel_tag = "manylinux_2_27_riscv64"
-exe = false
-static = false
-
-[[target]]
-# Zig 0.17 has no glibc 2.17 for this arch; 2.19 is the oldest it ships.
-triple = "powerpc64le-linux-gnu.2.19"
-wheel_tag = "manylinux_2_19_ppc64le"
 exe = false
 static = false
 
