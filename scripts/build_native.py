@@ -67,7 +67,7 @@ def zig_cc_cmd(
     if "windows" in target.triple:
         cmd.extend(["-lshell32", "-lkernel32", "-D_CRT_SECURE_NO_WARNINGS"])
     elif "freebsd" not in target.triple:
-        cmd.append("-D_POSIX_C_SOURCE=200809L")
+        cmd.append("-D_XOPEN_SOURCE=700")
     cmd.extend(str(src) for src in tool.sources)
     cmd.extend(str(src) for src in shared_sources())
     return cmd

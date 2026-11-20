@@ -1,6 +1,12 @@
 #ifndef UVS_H
 #define UVS_H
 
+#if !defined(_WIN32)
+#ifndef _XOPEN_SOURCE
+#define _XOPEN_SOURCE 700
+#endif
+#endif
+
 #include <stdarg.h>
 #include <stddef.h>
 #include <stdint.h>
