@@ -4,7 +4,7 @@
 
 .DEFAULT_GOAL := default
 
-.PHONY: default install lint test test-random docs docs-build upgrade build clean pre-commit sync sync-once profile security
+.PHONY: default install lint test test-random docs docs-build upgrade build clean pre-commit sync sync-once native native-all wheels profile security
 
 default: install lint test 
 
@@ -45,19 +45,32 @@ upgrade:
 	uv sync
 
 build:
+	uv run python scripts/build_native.py
 	uv build
+
+native:
+	uv run python scripts/build_native.py
+
+native-all:
+	uv run python scripts/build_native.py --all
+
+wheels:
+	uv run python scripts/build_native.py --all
+	uv run python scripts/package_wheels.py
 
 pre-commit:
 	uv run pre-commit run --all-files
 
 sync:
-	uv run python scripts/sync_chosen_files.py
+	uv run sync_chosen_files
 
 sync-once:
-	uv run python scripts/sync_chosen_files.py --once
+	uv run sync_chosen_files --once
 
 clean:
 	-rm -rf dist/
+	-rm -rf .zig-cache/
+	-rm -rf .uv-cache/
 	-rm -rf site/
 	-rm -rf *.egg-info/
 	-rm -rf .pytest_cache/

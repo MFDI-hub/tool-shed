@@ -1,15 +1,21 @@
-"""uv-scripts: Portable C tool for uv scripts, built for every platform.."""
+"""tool-shed: C command-line tools installed as Python console scripts."""
 
-from __future__ import annotations
-
-from importlib.metadata import PackageNotFoundError, version
+from .launch import TOOLS, find_binary
 
 try:
-    __version__ = version("uv-scripts")
+    from importlib.metadata import PackageNotFoundError, version
+except ImportError:  # pragma: no cover  # Python < 3.8
+
+    class PackageNotFoundError(Exception):
+        pass
+
+    def version(_name):
+        raise PackageNotFoundError()
+
+
+try:
+    __version__ = version("tool-shed")
 except PackageNotFoundError:  # pragma: no cover
     __version__ = "0.0.0"
 
-__all__ = ["__version__"]
-
-# Re-export your public API from here (e.g. `from .core import Client`) and add
-# each name to __all__. Avoid wildcard imports: they break static analysis.
+__all__ = ["TOOLS", "__version__", "find_binary"]

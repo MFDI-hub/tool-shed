@@ -1,15 +1,12 @@
-"""Command line entry point for uv-scripts."""
+"""Command line entry point for tool-shed."""
 
-from __future__ import annotations
-
-
-def main() -> None:
-    """Entry point for the `uv_scripts` console script.
-
-    Replace this with your real entry point. Keeping it importable and
-    covered by a test is what makes the placeholder project green.
-    """
+from .launch import TOOLS, find_binary
 
 
-if __name__ == "__main__":
-    main()
+def main():
+    """Print the tools this package installs and whether each binary is present."""
+    print("tool-shed tools:")
+    for name in TOOLS:
+        path = find_binary(name)
+        status = str(path) if path is not None else "not built"
+        print("  {0}  ({1})".format(name, status))

@@ -18,6 +18,13 @@ __pycache__/
 
 # C extensions
 *.so
+.zig-cache/
+zig-out/
+.uv-cache/
+
+# Staged native binaries (copied here only while packaging wheels)
+src/uv_scripts/_native/*
+!src/uv_scripts/_native/.gitkeep
 
 # Distribution / packaging
 .Python
@@ -62,6 +69,8 @@ coverage.xml
 *.py,cover
 .hypothesis/
 .pytest_cache/
+# pytest tmp_path leftovers if TMPDIR is the repo
+pytest-of-*/
 cover/
 
 # Translations

@@ -1,0 +1,157 @@
+# Zig cross-compile matrix. Directory names under dist/bin/ match `triple`.
+# One py3-none-<wheel_tag> wheel is published per row. iOS, Android, and WASM
+# are omitted: these tools are local CLIs, and those platforms have no pip/uv
+# install path that would pick these tags.
+#
+# Linux GNU uses the oldest glibc Zig can give that arch so the wheel installs
+# on more distros. RISC-V needs 2.27; LoongArch needs 2.36.
+
+zig_version = "0.17.1"
+
+# --- Windows ---
+
+[[target]]
+triple = "x86_64-windows-gnu"
+wheel_tag = "win_amd64"
+exe = true
+static = true
+
+[[target]]
+triple = "aarch64-windows-gnu"
+wheel_tag = "win_arm64"
+exe = true
+static = true
+
+[[target]]
+triple = "x86-windows-gnu"
+wheel_tag = "win32"
+exe = true
+static = true
+
+# --- macOS ---
+
+[[target]]
+triple = "x86_64-macos"
+wheel_tag = "macosx_11_0_x86_64"
+exe = false
+static = false
+
+[[target]]
+triple = "aarch64-macos"
+wheel_tag = "macosx_11_0_arm64"
+exe = false
+static = false
+
+# --- Linux glibc (manylinux) ---
+
+[[target]]
+triple = "x86_64-linux-gnu.2.17"
+wheel_tag = "manylinux_2_17_x86_64"
+exe = false
+static = false
+
+[[target]]
+triple = "aarch64-linux-gnu.2.17"
+wheel_tag = "manylinux_2_17_aarch64"
+exe = false
+static = false
+
+[[target]]
+triple = "x86-linux-gnu.2.17"
+wheel_tag = "manylinux_2_17_i686"
+exe = false
+static = false
+
+[[target]]
+triple = "arm-linux-gnueabihf"
+wheel_tag = "manylinux_2_17_armv7l"
+exe = false
+static = false
+
+[[target]]
+triple = "riscv64-linux-gnu.2.27"
+wheel_tag = "manylinux_2_27_riscv64"
+exe = false
+static = false
+
+[[target]]
+triple = "powerpc64le-linux-gnu.2.17"
+wheel_tag = "manylinux_2_17_ppc64le"
+exe = false
+static = false
+
+[[target]]
+triple = "s390x-linux-gnu.2.17"
+wheel_tag = "manylinux_2_17_s390x"
+exe = false
+static = false
+
+[[target]]
+triple = "loongarch64-linux-gnu.2.36"
+wheel_tag = "manylinux_2_36_loongarch64"
+exe = false
+static = false
+
+# --- Linux musl (Alpine and other musllinux) ---
+
+[[target]]
+triple = "x86_64-linux-musl"
+wheel_tag = "musllinux_1_2_x86_64"
+exe = false
+static = true
+
+[[target]]
+triple = "aarch64-linux-musl"
+wheel_tag = "musllinux_1_2_aarch64"
+exe = false
+static = true
+
+[[target]]
+triple = "x86-linux-musl"
+wheel_tag = "musllinux_1_2_i686"
+exe = false
+static = true
+
+[[target]]
+triple = "arm-linux-musleabihf"
+wheel_tag = "musllinux_1_2_armv7l"
+exe = false
+static = true
+
+[[target]]
+triple = "riscv64-linux-musl"
+wheel_tag = "musllinux_1_2_riscv64"
+exe = false
+static = true
+
+[[target]]
+triple = "powerpc64le-linux-musl"
+wheel_tag = "musllinux_1_2_ppc64le"
+exe = false
+static = true
+
+[[target]]
+triple = "s390x-linux-musl"
+wheel_tag = "musllinux_1_2_s390x"
+exe = false
+static = true
+
+[[target]]
+triple = "loongarch64-linux-musl"
+wheel_tag = "musllinux_1_2_loongarch64"
+exe = false
+static = true
+
+# --- FreeBSD (no manylinux-style ABI; 12+ tags match uv/pip freebsd_*) ---
+
+[[target]]
+triple = "x86_64-freebsd"
+wheel_tag = "freebsd_12_x86_64"
+exe = false
+static = false
+
+[[target]]
+triple = "aarch64-freebsd"
+wheel_tag = "freebsd_12_aarch64"
+exe = false
+static = false

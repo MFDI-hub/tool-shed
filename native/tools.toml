@@ -1,0 +1,41 @@
+# Each tool is a C program. Shared sources in native/src/ are always compiled in.
+
+[[tool]]
+name = "sync_chosen_files"
+sources = ["native/tools/sync_chosen_files/main.c"]
+
+[[tool]]
+name = "watch_run"
+sources = ["native/tools/watch_run/main.c"]
+
+[[tool]]
+name = "skeleton_dump"
+sources = ["native/tools/skeleton_dump/main.c"]
+
+[[tool]]
+name = "hash_tree"
+sources = ["native/tools/hash_tree/main.c"]
+
+[[tool]]
+name = "repo_map"
+sources = ["native/tools/repo_map/main.c"]
+
+[[tool]]
+name = "related"
+sources = ["native/tools/related/main.c"]
+
+[[tool]]
+name = "quiet_exec"
+sources = ["native/tools/quiet_exec/main.c"]
+
+[[tool]]
+name = "slice"
+sources = ["native/tools/slice/main.c"]
+
+[[tool]]
+name = "churn"
+sources = ["native/tools/churn/main.c"]
+
+[[tool]]
+name = "diff_syms"
+sources = ["native/tools/diff_syms/main.c"]

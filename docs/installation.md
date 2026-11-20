@@ -33,7 +33,8 @@ supported installation methods.
 uv python install 3.13
 ```
 
-You can choose any compatible version required by this project.
+The installed launcher supports Python 3.6 and newer. Development (lint, tests,
+docs) still wants 3.11+. You can choose any compatible version.
 
 ### Install project dependencies
 
@@ -44,3 +45,20 @@ uv sync
 ```
 
 This creates `.venv` and installs runtime + development dependencies.
+
+### Install as a user tool
+
+Published wheels are platform-specific (`py3-none-<platform>`) and bundle the C
+binaries for that OS/CPU. After a release:
+
+```shell
+uv tool install tool-shed
+sync_chosen_files --once
+```
+
+From a source checkout you must compile the host binary first (`zig` on `PATH`):
+
+```shell
+uv run python scripts/build_native.py
+uv run sync_chosen_files --once
+```

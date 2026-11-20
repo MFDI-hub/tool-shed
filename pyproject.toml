@@ -4,14 +4,16 @@
 # Standard project metadata. [project] must come first: TOML tables cannot be
 # reopened later in the file.
 [project]
-name = "uv-scripts"
-description = "Portable C tool for uv scripts, built for every platform."
+name = "tool-shed"
+description = "Portable C CLI tools, built for every platform."
 authors = [
     { name = "mfdi", email = "dogkanicen@gmail.com" },
 ]
 readme = "README.md"
 license = "MIT"
-requires-python = ">=3.11"
+# Installed package is a thin launcher around C binaries; keep this as far back
+# as f-strings / pathlib (3.6). Dev tools below still need a current Python.
+requires-python = ">=3.6"
 # Version comes from git tags at build time (see [tool.uv-dynamic-versioning]).
 dynamic = ["version"]
 
@@ -23,6 +25,11 @@ classifiers = [
     "Operating System :: OS Independent",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
@@ -37,7 +44,7 @@ dependencies = []
 
 [project.optional-dependencies]
 # Extras are optional *runtime* features your users opt into, e.g.
-#   pip install uv-scripts[fast]
+#   pip install tool-shed[fast]
 # Start empty. deptry reports extras that nothing imports as unused (DEP002),
 # so only add one when the code actually uses it behind a guarded import.
 # fast = ["orjson>=3.10"]
@@ -49,8 +56,20 @@ Repository = "https://github.com/MFDI-hub/uv-scripts"
 
 [project.scripts]
 # Prefer the module name (snake_case); hyphens in a console script name can
-# break the generated .exe shim on Windows.
+# break the generated .exe shim on Windows. PyPI name is tool-shed; import
+# package stays uv_scripts (this GitHub repo).
+tool_shed = "uv_scripts.uv_scripts:main"
 uv_scripts = "uv_scripts.uv_scripts:main"
+sync_chosen_files = "uv_scripts.sync_chosen_files:main"
+watch_run = "uv_scripts.watch_run:main"
+skeleton_dump = "uv_scripts.skeleton_dump:main"
+hash_tree = "uv_scripts.hash_tree:main"
+repo_map = "uv_scripts.repo_map:main"
+related = "uv_scripts.related:main"
+quiet_exec = "uv_scripts.quiet_exec:main"
+slice = "uv_scripts.slice:main"
+churn = "uv_scripts.churn:main"
+diff_syms = "uv_scripts.diff_syms:main"
 
 
 # ---- Dependency groups (PEP 735) ----
@@ -109,6 +128,17 @@ profiling = [
 
 [tool.uv]
 default-groups = ["dev", "docs"]
+# Dev groups (ruff, ty, pytest, …) need 3.11+. The published launcher still
+# installs on 3.6+ (see requires-python); this only limits lock resolution.
+environments = ["python_full_version >= '3.11'"]
+
+# Explicit TestPyPI index so `uv publish --index testpypi` never consults
+# TestPyPI during normal `uv add` / `uv sync` resolution.
+[[tool.uv.index]]
+name = "testpypi"
+url = "https://test.pypi.org/simple/"
+publish-url = "https://test.pypi.org/legacy/"
+explicit = true
 
 # ---- Build system ----
 # hatchling builds the sdist and wheel. uv-dynamic-versioning reads the version
@@ -132,6 +162,19 @@ bump = false
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/uv_scripts"]
+artifacts = ["src/uv_scripts/_native/*"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/src",
+    "/native",
+    "/scripts",
+    "/tests",
+    "/docs",
+    "/Makefile",
+    "/README.md",
+    "/LICENSE",
+]
 
 
 # ---- Ruff (lint + format) ----
@@ -140,7 +183,8 @@ packages = ["src/uv_scripts"]
 [tool.ruff]
 # Typically 88 (black standard) or 100 (wide).
 line-length = 100
-# Oldest Python in requires-python: lets ruff modernise code for it (UP rules).
+# Dev/tests/scripts stay on a current Python. The installed launcher in
+# src/uv_scripts/ is written for 3.6 (see per-file-ignores UP/TC).
 target-version = "py311"
 # Also lint docstring code blocks and notebooks once you have them:
 # extend-include = ["*.ipynb"]
@@ -185,16 +229,20 @@ ignore = [
 
 [tool.ruff.lint.per-file-ignores]
 # Tests often need "unused" fixture arguments and assert inside helpers.
-"tests/**" = ["ARG001", "ARG002", "S101", "B018", "S105", "S106"]
-# T201: scripts are thin wrappers that legitimately print.
-# S603/S607: they also legitimately shell out to tools like git.
+"tests/**" = ["ARG001", "ARG002", "ARG005", "S101", "S603", "B018", "S105", "S106"]
+# T201: CLIs and build scripts print status.
+# S603/S607: they also legitimately shell out to zig, uv, and the C binaries.
+# Installed launcher must parse on Python 3.6: no postponed annotations, no |.
+"src/uv_scripts/**" = ["UP", "TC", "RUF005"]
+"src/uv_scripts/uv_scripts.py" = ["T201"]
+"src/uv_scripts/launch.py" = ["S603", "S606", "S607"]
 "scripts/**" = ["T201", "S603", "S607"]
 "devtools/**" = ["S603", "S607"]
 # An __init__.py re-exporting a public API looks like unused imports.
 "src/**/__init__.py" = ["F401"]
 
 [tool.ruff.lint.isort]
-known-first-party = ["uv_scripts"]
+known-first-party = ["uv_scripts", "native_meta"]
 combine-as-imports = true
 
 [tool.ruff.format]
@@ -205,9 +253,10 @@ docstring-code-format = true
 # https://docs.astral.sh/ty/configuration/
 
 [tool.ty.environment]
-# Keep in sync with requires-python above; ty would otherwise infer it, but
-# being explicit keeps editors and CI on the same target.
+# ty and the rest of the dev toolchain run on 3.11+. The published launcher
+# still supports 3.6 (see requires-python).
 python-version = "3.11"
+extra-paths = ["scripts"]
 
 [tool.ty.src]
 include = ["src", "tests", "devtools", "scripts"]
@@ -302,7 +351,7 @@ exclude_lines = [
 
 [tool.deptry]
 # Directories scanned for imports.
-extend_exclude = ["devtools", "scripts", "docs"]
+extend_exclude = ["devtools", "docs", "scripts", "native"]
 
 [tool.deptry.package_module_name_map]
 # Mapping a package to its import name also silences "Assuming the corresponding

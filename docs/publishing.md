@@ -21,6 +21,15 @@ You can release in either way:
 tag. A dispatch from a branch has no `vX.Y.Z` tag, so uv-dynamic-versioning produces
 a local version that PyPI rejects.
 
+`publish.yml` cross-compiles every target with Zig, attaches every
+`py3-none-<platform>` wheel plus the raw binaries to the GitHub Release,
+publishes those wheels to TestPyPI, then publishes the same wheels to PyPI.
+It does not publish an `any` wheel.
+
+Register **two** pending trusted publishers (TestPyPI and PyPI are separate
+sites). Use workflow filename `publish.yml` and leave the environment name
+blank on both forms.
+
 ### First-Time Setup
 
 This part is a little confusing the first time.
@@ -43,15 +52,16 @@ for Copier usage and repo layout.
 
    - If needed, update your `pyproject.toml` with the correct name.
 
-3. **Authorize** your repository to publish to PyPI:
+3. **Authorize** your repository to publish to TestPyPI and PyPI (two forms):
 
-   - Go to [the publishing settings page](https://pypi.org/manage/account/publishing/).
+   - TestPyPI: [trusted publishing](https://test.pypi.org/manage/account/publishing/).
+   - PyPI: [trusted publishing](https://pypi.org/manage/account/publishing/).
 
-   - Find “Trusted Publisher Management” and register your GitHub repo as a new
-     “pending” trusted publisher.
+   - On each site, register this GitHub repo as a new “pending” trusted publisher.
 
-   - Enter the project name, repo owner, repo name, and `publish.yml` as the workflow
-     name. (You can leave the “environment name” field blank.)
+   - Enter the project name (`tool-shed`), owner (`MFDI-hub`), repo
+     (`uv-scripts`), and `publish.yml` as the workflow name. Leave the
+     environment name blank.
 
 4. **Create a first release** so versioning starts on `0.x` (optional but recommended):
 
@@ -70,7 +80,8 @@ for Copier usage and repo layout.
 
    - Watch for the release workflow in the GitHub Actions tab.
 
-   - If it succeeds, you should see it appear at `https://pypi.org/project/PROJECT`.
+   - If it succeeds, wheels and binaries are on the GitHub Release, then at
+     `https://test.pypi.org/project/PROJECT` and `https://pypi.org/project/PROJECT`.
 
 ### Publishing Subsequent Releases
 

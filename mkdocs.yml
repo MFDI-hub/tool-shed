@@ -1,5 +1,5 @@
 site_name: "uv-scripts"
-site_description: "Portable C tool for uv scripts, built for every platform."
+site_description: "Portable C CLI tools, built for every platform."
 # Canonical URL for the sitemap. docs.yml publishes a GitHub Pages project site.
 # For Read the Docs, use https://uv-scripts.readthedocs.io/ instead.
 site_url: https://MFDI-hub.github.io/uv-scripts/
@@ -49,6 +49,18 @@ markdown_extensions:
 nav:
   - Home: index.md
   - Installation: installation.md
+  - Tools:
+      - Overview: tools/index.md
+      - sync_chosen_files: tools/sync_chosen_files.md
+      - watch_run: tools/watch_run.md
+      - skeleton_dump: tools/skeleton_dump.md
+      - hash_tree: tools/hash_tree.md
+      - repo_map: tools/repo_map.md
+      - related: tools/related.md
+      - quiet_exec: tools/quiet_exec.md
+      - slice: tools/slice.md
+      - churn: tools/churn.md
+      - diff_syms: tools/diff_syms.md
   - API Reference: api.md
   - Development: development.md
   - Publishing: publishing.md

@@ -24,8 +24,15 @@ make install
 # Run uv sync, lint, and test:
 make
 
-# Build wheel:
+# Build host C tools, then the Python wheel:
+make native
 make build
+
+# Cross-compile every target in native/targets.toml:
+make native-all
+
+# Build platform wheels that bundle those binaries:
+make wheels
 
 # Linting (codespell, ruff, ty, vulture). Local runs may rewrite files.
 # CI passes --check so a dirty tree fails the job:
@@ -101,27 +108,39 @@ The `Makefile` wraps the common combinations (`make install`, `make lint`, `make
 `[tool.ty.analysis] allowed-unresolved-imports` over sprinkling `# type: ignore`.
 Run `uv run ty check --output-format concise` to see rule names for `[tool.ty.rules]`.
 
-## Sync chosen files
+## Native C tools
 
-`scripts/sync_chosen_files.py` watches selected source paths and writes a single text
-dump (useful for sharing code with LLMs or archiving a snapshot).
+Tools live under `native/tools/<name>/` and are compiled with `zig cc`. Shared C
+is in `native/src/`. The target matrix is `native/targets.toml` (one wheel per Windows/macOS/Linux
+GNU/Linux musl/FreeBSD CPU that pip and uv can install).
 
-Edit `scripts/chosen_files.txt` to list files or directories (one path per line).
-Then:
+Install [Zig 0.17.1](https://ziglang.org/download/) and put `zig` on `PATH`.
+Pytest skips the C-tool tests until the host binary exists. Then:
 
 ```shell
-# One-shot dump:
-uv run python scripts/sync_chosen_files.py --once
-
-# Watch and re-sync on changes:
-uv run python scripts/sync_chosen_files.py
-
-# Custom paths or output file:
-uv run python scripts/sync_chosen_files.py --dir src/uv_scripts --out outputs/builds/source_dump.txt --once
-uv run python scripts/sync_chosen_files.py --file-list scripts/chosen_files.txt --ext py,toml --once
+uv run python scripts/build_native.py          # this machine
+uv run python scripts/build_native.py --all    # every triple
+uv run python scripts/package_wheels.py        # py3-none-<platform> wheels
 ```
 
-Output defaults to `outputs/builds/source_dump.txt` (gitignored).
+The Python launcher (`uv_scripts.launch`) looks for a binary in this order:
+`UV_SCRIPTS_BIN`, the packaged `uv_scripts/_native/` directory, then
+`dist/bin/<host-triple>/` in a source checkout. macOS binaries produced by Zig
+are unsigned.
+
+Add a new tool by creating `native/tools/<name>/main.c`, a row in
+`native/tools.toml`, a name in `TOOLS` in `src/uv_scripts/launch.py`, a
+console-script module that calls `launch("<name>")`, and a pytest module that
+skips until the host binary exists.
+
+Shared walk/gitignore/include-exclude lives in `native/src/discover.c`. Do not
+add a second path lister, token reporter, diff dumper, tree printer, or secret
+scanner: those jobs are already flags on `sync_chosen_files`. Import/signature
+graph helpers live in `native/src/codegraph.c` (`repo_map`, `related`).
+Command capture with merged stdout+stderr is `uvs_run_capture_argv` in
+`native/src/fs.c` (`quiet_exec`).
+
+How each CLI behaves: [Tools](tools/index.md).
 
 ## Pre-commit and Commitizen
 
