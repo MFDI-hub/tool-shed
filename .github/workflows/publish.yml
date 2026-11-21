@@ -107,11 +107,25 @@ jobs:
       - name: Publish platform wheels to TestPyPI
         env:
           UV_PUBLISH_TOKEN: ${{ secrets.TEST_PYPI_TOKEN }}
-        run: >
-          uv publish
-          --publish-url https://test.pypi.org/legacy/
-          --check-url https://test.pypi.org/simple/
-          dist/*.whl
+        run: |
+          # Warehouse rejects platform tags it does not recognize. FreeBSD and
+          # loongarch64 wheels stay on the GitHub release.
+          shopt -s nullglob
+          wheels=()
+          for wheel in dist/*.whl; do
+            case "$wheel" in
+              *freebsd*|*loongarch64*) continue ;;
+            esac
+            wheels+=("$wheel")
+          done
+          if ((${#wheels[@]} == 0)); then
+            echo "no PyPI-compatible wheels in dist/" >&2
+            exit 1
+          fi
+          uv publish \
+            --publish-url https://test.pypi.org/legacy/ \
+            --check-url https://test.pypi.org/simple/ \
+            "${wheels[@]}"
 
   pypi:
     needs: testpypi
@@ -133,7 +147,21 @@ jobs:
       - name: Publish platform wheels to PyPI
         env:
           UV_PUBLISH_TOKEN: ${{ secrets.PYPI_TOKEN }}
-        run: >
-          uv publish
-          --check-url https://pypi.org/simple/
-          dist/*.whl
+        run: |
+          # Warehouse rejects platform tags it does not recognize. FreeBSD and
+          # loongarch64 wheels stay on the GitHub release.
+          shopt -s nullglob
+          wheels=()
+          for wheel in dist/*.whl; do
+            case "$wheel" in
+              *freebsd*|*loongarch64*) continue ;;
+            esac
+            wheels+=("$wheel")
+          done
+          if ((${#wheels[@]} == 0)); then
+            echo "no PyPI-compatible wheels in dist/" >&2
+            exit 1
+          fi
+          uv publish \
+            --check-url https://pypi.org/simple/ \
+            "${wheels[@]}"
