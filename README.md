@@ -1,5 +1,45 @@
 # tools-shed
 
+<p align="center">
+  <a href="https://pypi.org/project/tools-shed/"><img alt="PyPI" src="https://img.shields.io/pypi/v/tools-shed?logo=pypi&logoColor=white&style=for-the-badge"></a>
+  <a href="https://pypi.org/project/tools-shed/"><img alt="Python versions" src="https://img.shields.io/pypi/pyversions/tools-shed?logo=python&logoColor=white&style=for-the-badge"></a>
+  <a href="https://pypi.org/project/tools-shed/"><img alt="Downloads" src="https://img.shields.io/pypi/dm/tools-shed?logo=pypi&logoColor=white&style=for-the-badge"></a>
+  <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/github/license/MFDI-hub/tool-shed?logo=opensourceinitiative&logoColor=white&style=for-the-badge"></a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/MFDI-hub/tool-shed/actions/workflows/ci.yml"><img alt="CI" src="https://img.shields.io/github/actions/workflow/status/MFDI-hub/tool-shed/ci.yml?branch=main&label=CI&logo=githubactions&logoColor=white&style=for-the-badge"></a>
+  <a href="https://github.com/MFDI-hub/tool-shed/actions/workflows/native.yml"><img alt="Native build" src="https://img.shields.io/github/actions/workflow/status/MFDI-hub/tool-shed/native.yml?branch=main&label=native&logo=zig&logoColor=white&style=for-the-badge"></a>
+  <a href="https://github.com/MFDI-hub/tool-shed/releases/latest"><img alt="Release" src="https://img.shields.io/github/v/release/MFDI-hub/tool-shed?logo=github&logoColor=white&style=for-the-badge"></a>
+  <a href="https://MFDI-hub.github.io/tool-shed/"><img alt="Docs" src="https://img.shields.io/badge/docs-GitHub%20Pages-1264a3?logo=materialformkdocs&logoColor=white&style=for-the-badge"></a>
+  <a href="https://ziglang.org/download/"><img alt="Zig 0.17.1" src="https://img.shields.io/badge/zig-0.17.1-f7a41d?logo=zig&logoColor=white&style=for-the-badge"></a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/MFDI-hub/tool-shed/releases"><img alt="Windows" src="https://img.shields.io/badge/Windows-0078D6?logo=windows&logoColor=white&style=for-the-badge"></a>
+  <a href="https://github.com/MFDI-hub/tool-shed/releases"><img alt="macOS" src="https://img.shields.io/badge/macOS-000000?logo=apple&logoColor=white&style=for-the-badge"></a>
+  <a href="https://github.com/MFDI-hub/tool-shed/releases"><img alt="Linux" src="https://img.shields.io/badge/Linux-FCC624?logo=linux&logoColor=black&style=for-the-badge"></a>
+  <a href="https://github.com/MFDI-hub/tool-shed/releases"><img alt="FreeBSD" src="https://img.shields.io/badge/FreeBSD-AB2B28?logo=freebsd&logoColor=white&style=for-the-badge"></a>
+</p>
+
+<p align="center">
+  <a href="https://pypi.org/project/tools-shed/">PyPI</a>
+  ·
+  <a href="https://MFDI-hub.github.io/tool-shed/">Docs</a>
+  ·
+  <a href="https://MFDI-hub.github.io/tool-shed/installation/">Installation</a>
+  ·
+  <a href="https://MFDI-hub.github.io/tool-shed/api/">API</a>
+  ·
+  <a href="https://github.com/MFDI-hub/tool-shed">Source</a>
+  ·
+  <a href="https://github.com/MFDI-hub/tool-shed/releases">Releases</a>
+  ·
+  <a href="SECURITY.md">Security</a>
+  ·
+  <a href="CONTRIBUTING.md">Contributing</a>
+</p>
+
 A hub of command-line tools written in C and installed as Python console scripts.
 Zig cross-compiles each tool for every OS/CPU that can install a platform wheel
 (Windows, macOS, manylinux, musllinux, FreeBSD). A thin Python launcher runs the
@@ -34,8 +74,28 @@ imports, shrink command output, slice a symbol, or list git hotspots.
 
 ```shell
 uv tool install tools-shed
+pip install tools-shed
+
 sync_chosen_files --once
 watch_run --dir src -- pytest -q
+```
+
+A one-file dump (`sync_chosen_files hello.py --once --out -`):
+
+```text
+# synced dump
+# files: 1
+# bytes: 12
+# lines: 1
+# tokens: ~3
+#
+# tree:
+# hello.py
+
+================================================================================
+FILE: hello.py
+================================================================================
+print("hi")
 ```
 
 From a checkout:
