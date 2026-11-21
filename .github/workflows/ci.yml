@@ -106,8 +106,9 @@ jobs:
       - name: Verify Docs Build
         run: uv run mkdocs build --strict
 
-  # Full lint/test needs 3.11+ (ruff, ty, pytest). The published launcher is
-  # written for Python 3.6+; smoke-import it on the oldest CPython uv ships.
+  # Full lint/test needs 3.11+. The launcher runs on 3.6+, but hatchling and
+  # uv-dynamic-versioning need 3.10 to build. Build the wheel on 3.13 and
+  # import that wheel on the oldest interpreters uv ships.
   launcher-old-python:
     strategy:
       fail-fast: false
@@ -125,12 +126,23 @@ jobs:
         with:
           version: "0.13.8"
           enable-cache: true
-          python-version: ${{ matrix.python-version }}
+          python-version: "3.13"
+
+      - name: Install old CPython
+        run: uv python install ${{ matrix.python-version }}
+
+      - name: Build the wheel
+        run: uv build --wheel --python 3.13 --out-dir dist/old-python
+
+      - name: Install the wheel
+        run: |
+          uv venv --python ${{ matrix.python-version }}
+          uv pip install dist/old-python/*.whl
 
       - name: Import launcher
         run: |
-          uv run python -c "from tool_shed.launch import exe_name, find_binary, host_triple; print(host_triple()); print(exe_name('sync_chosen_files')); print(find_binary('sync_chosen_files'))"
-          uv run python -m tool_shed
+          .venv/bin/python -c "from tool_shed.launch import exe_name, find_binary, host_triple; print(host_triple()); print(exe_name('sync_chosen_files')); print(find_binary('sync_chosen_files'))"
+          .venv/bin/python -m tool_shed
 
   security:
     runs-on: ubuntu-latest
