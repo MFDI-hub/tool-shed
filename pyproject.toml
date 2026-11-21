@@ -78,46 +78,46 @@ diff_syms = "tool_shed.diff_syms:main"
 [dependency-groups]
 # `dev` is installed by plain `uv sync` (it is uv's default group).
 dev = [
-    # Lint, format, type check.
-    "ruff>=0.17.3",
-    "ty>=0.0.96",
-    "codespell>=2.4.3",
-    "vulture>=2.16",
-    "deptry>=0.25.1",
+    # Lint, format, type check. These need 3.11+; the launcher itself does not.
+    "ruff>=0.17.3; python_version >= '3.11'",
+    "ty>=0.0.96; python_version >= '3.11'",
+    "codespell>=2.4.3; python_version >= '3.11'",
+    "vulture>=2.16; python_version >= '3.11'",
+    "deptry>=0.25.1; python_version >= '3.11'",
     # Test runner + the plugins most projects end up needing.
-    "pytest>=9.2.0",
-    "pytest-cov>=7.1.0",
-    "pytest-xdist>=3.8.0",
-    "pytest-sugar>=1.1.1",
-    "pytest-timeout>=2.4.0",
-    "pytest-asyncio>=1.4.1",
-    "pytest-mock>=3.17.0",
+    "pytest>=9.2.0; python_version >= '3.11'",
+    "pytest-cov>=7.1.0; python_version >= '3.11'",
+    "pytest-xdist>=3.8.0; python_version >= '3.11'",
+    "pytest-sugar>=1.1.1; python_version >= '3.11'",
+    "pytest-timeout>=2.4.0; python_version >= '3.11'",
+    "pytest-asyncio>=1.4.1; python_version >= '3.11'",
+    "pytest-mock>=3.17.0; python_version >= '3.11'",
     # Shuffles test order. `make test-random` runs once with it and once without.
-    "pytest-randomly>=5.1.0",
+    "pytest-randomly>=5.1.0; python_version >= '3.11'",
     # Git hooks, commits, releases.
-    "pre-commit>=4.7.0",
-    "commitizen>=4.19.3",
-    "rich>=15.0.0",
-    "funlog>=0.2.1",
+    "pre-commit>=4.7.0; python_version >= '3.11'",
+    "commitizen>=4.19.3; python_version >= '3.11'",
+    "rich>=15.0.0; python_version >= '3.11'",
+    "funlog>=0.2.1; python_version >= '3.11'",
 ]
 
 # Documentation. Split out so `--no-group docs` keeps syncs small.
 docs = [
-    "mkdocs>=1.6.1",
-    "mkdocs-material>=9.8.0",
-    "mkdocs-git-revision-date-localized-plugin>=1.6.3",
-    "mkdocstrings[python]>=1.0.8",
+    "mkdocs>=1.6.1; python_version >= '3.11'",
+    "mkdocs-material>=9.8.0; python_version >= '3.11'",
+    "mkdocs-git-revision-date-localized-plugin>=1.6.3; python_version >= '3.11'",
+    "mkdocstrings[python]>=1.0.8; python_version >= '3.11'",
 ]
 
 # Optional test group for property-based tests: `uv sync --group hypothesis`.
 property-testing = [
-    "hypothesis>=6.170.14",
+    "hypothesis>=6.170.14; python_version >= '3.11'",
 ]
 
 # Profiling helpers: `uv sync --group profiling`.
 profiling = [
-    "py-spy>=0.4.3",
-    "snakeviz>=2.2.2",
+    "py-spy>=0.4.3; python_version >= '3.11'",
+    "snakeviz>=2.2.2; python_version >= '3.11'",
 ]
 
 # ---- uv ----
@@ -126,9 +126,11 @@ profiling = [
 
 [tool.uv]
 default-groups = ["dev", "docs"]
-# Dev groups (ruff, ty, pytest, …) need 3.11+. The published launcher still
-# installs on 3.6+ (see requires-python); this only limits lock resolution.
-environments = ["python_full_version >= '3.11'"]
+# Dev groups are marker-limited to 3.11+. The launcher still resolves on 3.6+.
+environments = [
+    "python_full_version >= '3.11'",
+    "python_full_version < '3.11'",
+]
 
 # Explicit TestPyPI index so `uv publish --index testpypi` never consults
 # TestPyPI during normal `uv add` / `uv sync` resolution.

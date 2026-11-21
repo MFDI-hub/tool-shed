@@ -4,9 +4,11 @@ requires-python = ">=3.6"
 resolution-markers = [
     "python_full_version >= '3.11.5'",
     "python_full_version >= '3.11' and python_full_version < '3.11.5'",
+    "python_full_version < '3.11'",
 ]
 supported-markers = [
     "python_full_version >= '3.11'",
+    "python_full_version < '3.11'",
 ]
 
 [[package]]
@@ -1576,71 +1578,71 @@ default-groups = ["dev", "docs"]
 
 [package.dev-dependencies]
 dev = [
-    { name = "codespell" },
-    { name = "commitizen" },
-    { name = "deptry" },
-    { name = "funlog" },
-    { name = "pre-commit" },
-    { name = "pytest" },
-    { name = "pytest-asyncio" },
-    { name = "pytest-cov" },
-    { name = "pytest-mock" },
-    { name = "pytest-randomly" },
-    { name = "pytest-sugar" },
-    { name = "pytest-timeout" },
-    { name = "pytest-xdist" },
-    { name = "rich" },
-    { name = "ruff" },
-    { name = "ty" },
-    { name = "vulture" },
+    { name = "codespell", marker = "python_full_version >= '3.11'" },
+    { name = "commitizen", marker = "python_full_version >= '3.11'" },
+    { name = "deptry", marker = "python_full_version >= '3.11'" },
+    { name = "funlog", marker = "python_full_version >= '3.11'" },
+    { name = "pre-commit", marker = "python_full_version >= '3.11'" },
+    { name = "pytest", marker = "python_full_version >= '3.11'" },
+    { name = "pytest-asyncio", marker = "python_full_version >= '3.11'" },
+    { name = "pytest-cov", marker = "python_full_version >= '3.11'" },
+    { name = "pytest-mock", marker = "python_full_version >= '3.11'" },
+    { name = "pytest-randomly", marker = "python_full_version >= '3.11'" },
+    { name = "pytest-sugar", marker = "python_full_version >= '3.11'" },
+    { name = "pytest-timeout", marker = "python_full_version >= '3.11'" },
+    { name = "pytest-xdist", marker = "python_full_version >= '3.11'" },
+    { name = "rich", marker = "python_full_version >= '3.11'" },
+    { name = "ruff", marker = "python_full_version >= '3.11'" },
+    { name = "ty", marker = "python_full_version >= '3.11'" },
+    { name = "vulture", marker = "python_full_version >= '3.11'" },
 ]
 docs = [
-    { name = "mkdocs" },
-    { name = "mkdocs-git-revision-date-localized-plugin" },
-    { name = "mkdocs-material" },
-    { name = "mkdocstrings", extra = ["python"] },
+    { name = "mkdocs", marker = "python_full_version >= '3.11'" },
+    { name = "mkdocs-git-revision-date-localized-plugin", marker = "python_full_version >= '3.11'" },
+    { name = "mkdocs-material", marker = "python_full_version >= '3.11'" },
+    { name = "mkdocstrings", extra = ["python"], marker = "python_full_version >= '3.11'" },
 ]
 profiling = [
-    { name = "py-spy" },
-    { name = "snakeviz" },
+    { name = "py-spy", marker = "python_full_version >= '3.11'" },
+    { name = "snakeviz", marker = "python_full_version >= '3.11'" },
 ]
 property-testing = [
-    { name = "hypothesis" },
+    { name = "hypothesis", marker = "python_full_version >= '3.11'" },
 ]
 
 [package.metadata]
 
 [package.metadata.requires-dev]
 dev = [
-    { name = "codespell", specifier = ">=2.4.3" },
-    { name = "commitizen", specifier = ">=4.19.3" },
-    { name = "deptry", specifier = ">=0.25.1" },
-    { name = "funlog", specifier = ">=0.2.1" },
-    { name = "pre-commit", specifier = ">=4.7.0" },
-    { name = "pytest", specifier = ">=9.2.0" },
-    { name = "pytest-asyncio", specifier = ">=1.4.1" },
-    { name = "pytest-cov", specifier = ">=7.1.0" },
-    { name = "pytest-mock", specifier = ">=3.17.0" },
-    { name = "pytest-randomly", specifier = ">=5.1.0" },
-    { name = "pytest-sugar", specifier = ">=1.1.1" },
-    { name = "pytest-timeout", specifier = ">=2.4.0" },
-    { name = "pytest-xdist", specifier = ">=3.8.0" },
-    { name = "rich", specifier = ">=15.0.0" },
-    { name = "ruff", specifier = ">=0.17.3" },
-    { name = "ty", specifier = ">=0.0.96" },
-    { name = "vulture", specifier = ">=2.16" },
+    { name = "codespell", marker = "python_full_version >= '3.11'", specifier = ">=2.4.3" },
+    { name = "commitizen", marker = "python_full_version >= '3.11'", specifier = ">=4.19.3" },
+    { name = "deptry", marker = "python_full_version >= '3.11'", specifier = ">=0.25.1" },
+    { name = "funlog", marker = "python_full_version >= '3.11'", specifier = ">=0.2.1" },
+    { name = "pre-commit", marker = "python_full_version >= '3.11'", specifier = ">=4.7.0" },
+    { name = "pytest", marker = "python_full_version >= '3.11'", specifier = ">=9.2.0" },
+    { name = "pytest-asyncio", marker = "python_full_version >= '3.11'", specifier = ">=1.4.1" },
+    { name = "pytest-cov", marker = "python_full_version >= '3.11'", specifier = ">=7.1.0" },
+    { name = "pytest-mock", marker = "python_full_version >= '3.11'", specifier = ">=3.17.0" },
+    { name = "pytest-randomly", marker = "python_full_version >= '3.11'", specifier = ">=5.1.0" },
+    { name = "pytest-sugar", marker = "python_full_version >= '3.11'", specifier = ">=1.1.1" },
+    { name = "pytest-timeout", marker = "python_full_version >= '3.11'", specifier = ">=2.4.0" },
+    { name = "pytest-xdist", marker = "python_full_version >= '3.11'", specifier = ">=3.8.0" },
+    { name = "rich", marker = "python_full_version >= '3.11'", specifier = ">=15.0.0" },
+    { name = "ruff", marker = "python_full_version >= '3.11'", specifier = ">=0.17.3" },
+    { name = "ty", marker = "python_full_version >= '3.11'", specifier = ">=0.0.96" },
+    { name = "vulture", marker = "python_full_version >= '3.11'", specifier = ">=2.16" },
 ]
 docs = [
-    { name = "mkdocs", specifier = ">=1.6.1" },
-    { name = "mkdocs-git-revision-date-localized-plugin", specifier = ">=1.6.3" },
-    { name = "mkdocs-material", specifier = ">=9.8.0" },
-    { name = "mkdocstrings", extras = ["python"], specifier = ">=1.0.8" },
+    { name = "mkdocs", marker = "python_full_version >= '3.11'", specifier = ">=1.6.1" },
+    { name = "mkdocs-git-revision-date-localized-plugin", marker = "python_full_version >= '3.11'", specifier = ">=1.6.3" },
+    { name = "mkdocs-material", marker = "python_full_version >= '3.11'", specifier = ">=9.8.0" },
+    { name = "mkdocstrings", extras = ["python"], marker = "python_full_version >= '3.11'", specifier = ">=1.0.8" },
 ]
 profiling = [
-    { name = "py-spy", specifier = ">=0.4.3" },
-    { name = "snakeviz", specifier = ">=2.2.2" },
+    { name = "py-spy", marker = "python_full_version >= '3.11'", specifier = ">=0.4.3" },
+    { name = "snakeviz", marker = "python_full_version >= '3.11'", specifier = ">=2.2.2" },
 ]
-property-testing = [{ name = "hypothesis", specifier = ">=6.170.14" }]
+property-testing = [{ name = "hypothesis", marker = "python_full_version >= '3.11'", specifier = ">=6.170.14" }]
 
 [[package]]
 name = "tornado"
