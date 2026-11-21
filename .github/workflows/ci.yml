@@ -83,6 +83,10 @@ jobs:
           name: host-binaries
           path: dist/bin
 
+      # Artifact zips do not keep the executable bit.
+      - name: Mark host binaries executable
+        run: chmod -R a+x dist/bin
+
       - name: Install all dependencies
         run: uv sync --locked
 
