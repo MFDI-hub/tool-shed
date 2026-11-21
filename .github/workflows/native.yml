@@ -1,0 +1,69 @@
+name: Native cross-compile
+
+# Every Zig target. CI only builds the host binaries that the tests run.
+# This workflow runs when the C sources or the build scripts change, and
+# publish.yml still cross-compiles on a release.
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - "native/**"
+      - "scripts/build_native.py"
+      - "scripts/package_wheels.py"
+      - "scripts/native_meta.py"
+      - ".github/workflows/native.yml"
+  pull_request:
+    branches: [main, master]
+    paths:
+      - "native/**"
+      - "scripts/build_native.py"
+      - "scripts/package_wheels.py"
+      - "scripts/native_meta.py"
+      - ".github/workflows/native.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  cross-compile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v10.3.3
+        with:
+          version: "0.13.8"
+          enable-cache: true
+          python-version: "3.13"
+
+      - name: Install Zig
+        uses: mlugg/setup-zig@v2.2.1
+        with:
+          version: "0.17.1"
+
+      - name: Install all dependencies
+        run: uv sync --locked
+
+      - name: Build every target
+        run: uv run python scripts/build_native.py --all
+
+      - name: Package platform wheels
+        run: uv run python scripts/package_wheels.py --assets-dir dist/release-assets
+
+      - name: Upload binaries
+        uses: actions/upload-artifact@v7
+        with:
+          name: native-binaries
+          path: dist/bin
+          if-no-files-found: error
+
+      - name: Upload wheels
+        uses: actions/upload-artifact@v7
+        with:
+          name: platform-wheels
+          path: dist/*.whl
+          if-no-files-found: error

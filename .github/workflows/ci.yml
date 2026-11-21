@@ -15,7 +15,48 @@ permissions:
   contents: read
 
 jobs:
+  # Tests need the host binaries. Compile them once per native-source change
+  # and reuse the artifact. A full cross-compile belongs in native.yml and
+  # publish.yml, not on every push.
+  native:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v10.3.3
+        with:
+          version: "0.13.8"
+          enable-cache: true
+          python-version: "3.13"
+
+      - name: Restore host binaries
+        id: host-bin
+        uses: actions/cache@v4
+        with:
+          path: dist/bin
+          key: host-bin-zig-0.17.1-${{ hashFiles('native/**', 'scripts/build_native.py', 'scripts/native_meta.py') }}
+
+      - name: Install Zig
+        if: steps.host-bin.outputs.cache-hit != 'true'
+        uses: mlugg/setup-zig@v2.2.1
+        with:
+          version: "0.17.1"
+
+      - name: Build host C tools
+        if: steps.host-bin.outputs.cache-hit != 'true'
+        run: python scripts/build_native.py
+
+      - name: Upload host binaries
+        uses: actions/upload-artifact@v7
+        with:
+          name: host-binaries
+          path: dist/bin
+          if-no-files-found: error
+
   build:
+    needs: native
     strategy:
       matrix:
         os: ["ubuntu-latest"]
@@ -36,16 +77,14 @@ jobs:
           enable-cache: true
           python-version: ${{ matrix.python-version }}
 
-      - name: Install Zig
-        uses: mlugg/setup-zig@v2.2.1
+      - name: Download host binaries
+        uses: actions/download-artifact@v7
         with:
-          version: "0.17.1"
+          name: host-binaries
+          path: dist/bin
 
       - name: Install all dependencies
         run: uv sync --locked
-
-      - name: Build host C tools
-        run: uv run python scripts/build_native.py
 
       - name: Run linting
         run: uv run python devtools/lint.py --check
@@ -78,6 +117,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
 
       - name: Install uv
         uses: astral-sh/setup-uv@v10.3.3
@@ -86,54 +127,17 @@ jobs:
           enable-cache: true
           python-version: ${{ matrix.python-version }}
 
+      # setup-uv installs CPython into uv's directory, not as a system Python,
+      # so `uv pip install --system` cannot see 3.8–3.10.
       - name: Install the package only
-        run: uv pip install --system .
+        run: |
+          uv venv
+          uv pip install .
 
       - name: Import launcher
         run: |
-          python -c "from tool_shed.launch import exe_name, find_binary, host_triple; print(host_triple()); print(exe_name('sync_chosen_files')); print(find_binary('sync_chosen_files'))"
-          python -m tool_shed
-
-  cross-compile:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v7
-
-      - name: Install uv
-        uses: astral-sh/setup-uv@v10.3.3
-        with:
-          version: "0.13.8"
-          enable-cache: true
-          python-version: "3.13"
-
-      - name: Install Zig
-        uses: mlugg/setup-zig@v2.2.1
-        with:
-          version: "0.17.1"
-
-      - name: Install all dependencies
-        run: uv sync --locked
-
-      - name: Build every target
-        run: uv run python scripts/build_native.py --all
-
-      - name: Package platform wheels
-        run: uv run python scripts/package_wheels.py --assets-dir dist/release-assets
-
-      - name: Upload binaries
-        uses: actions/upload-artifact@v7
-        with:
-          name: native-binaries
-          path: dist/bin
-          if-no-files-found: error
-
-      - name: Upload wheels
-        uses: actions/upload-artifact@v7
-        with:
-          name: platform-wheels
-          path: dist/*.whl
-          if-no-files-found: error
+          uv run python -c "from tool_shed.launch import exe_name, find_binary, host_triple; print(host_triple()); print(exe_name('sync_chosen_files')); print(find_binary('sync_chosen_files'))"
+          uv run python -m tool_shed
 
   security:
     runs-on: ubuntu-latest
