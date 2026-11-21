@@ -135,8 +135,12 @@ jobs:
         run: uv build --wheel --python 3.13 --out-dir dist/old-python
 
       - name: Install the wheel
+        env:
+          # setup-uv pins UV_PYTHON to 3.13. This step installs into the
+          # old interpreter, so override that pin for both commands.
+          UV_PYTHON: ${{ matrix.python-version }}
         run: |
-          uv venv --python ${{ matrix.python-version }}
+          uv venv
           uv pip install dist/old-python/*.whl
 
       - name: Import launcher
