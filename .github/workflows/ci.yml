@@ -149,8 +149,8 @@ jobs:
 
       - name: Import launcher
         run: |
-          .venv/bin/python -c "from tool_shed.launch import exe_name, find_binary, host_triple; print(host_triple()); print(exe_name('sync_chosen_files')); print(find_binary('sync_chosen_files'))"
-          .venv/bin/python -m tool_shed
+          .venv/bin/python -c "from tools_shed.launch import exe_name, find_binary, host_triple; print(host_triple()); print(exe_name('sync_chosen_files')); print(find_binary('sync_chosen_files'))"
+          .venv/bin/python -m tools_shed
 
   security:
     runs-on: ubuntu-latest

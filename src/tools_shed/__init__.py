@@ -1,4 +1,4 @@
-"""tool-shed: C command-line tools installed as Python console scripts."""
+"""tools-shed: C command-line tools installed as Python console scripts."""
 
 from .launch import TOOLS, find_binary
 
@@ -14,7 +14,7 @@ except ImportError:  # pragma: no cover  # Python < 3.8
 
 
 try:
-    __version__ = version("tool-shed")
+    __version__ = version("tools-shed")
 except PackageNotFoundError:  # pragma: no cover
     __version__ = "0.0.0"
 

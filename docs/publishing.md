@@ -59,7 +59,7 @@ for Copier usage and repo layout.
 
    - On each site, register this GitHub repo as a new “pending” trusted publisher.
 
-   - Enter the project name (`tool-shed`), owner (`MFDI-hub`), repo
+   - Enter the project name (`tools-shed`), owner (`MFDI-hub`), repo
      (`tool-shed`), and `publish.yml` as the workflow name. Leave the
      environment name blank.
 

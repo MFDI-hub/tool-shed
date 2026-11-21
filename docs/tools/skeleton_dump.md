@@ -257,7 +257,7 @@ uv run skeleton_dump --dir=src --ext=py,c,ts --out=-
 Positional paths (file + directory):
 
 ```shell
-uv run skeleton_dump src/tool_shed/launch.py native/src --ext py,c
+uv run skeleton_dump src/tools_shed/launch.py native/src --ext py,c
 ```
 
 Include / exclude (quoted so the shell does not expand `*`):
@@ -287,7 +287,7 @@ uv run skeleton_dump --dir . --no-hidden --ext py
 One explicit file (dumped even if gitignored):
 
 ```shell
-uv run skeleton_dump src/tool_shed/launch.py --out -
+uv run skeleton_dump src/tools_shed/launch.py --out -
 ```
 
 `--no-imports` — drop `import` / `#include` / `require`:

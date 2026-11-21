@@ -87,7 +87,7 @@ def build_one(zig: str, target: Target, tool: Tool) -> Path:
 
 
 def parse_args() -> argparse.Namespace:
-    ap = argparse.ArgumentParser(description="Build tool-shed C tools with Zig.")
+    ap = argparse.ArgumentParser(description="Build tools-shed C tools with Zig.")
     ap.add_argument("--all", action="store_true", help="Build every target in native/targets.toml")
     ap.add_argument(
         "--target",

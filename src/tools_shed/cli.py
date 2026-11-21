@@ -1,11 +1,11 @@
-"""Command line entry point for tool-shed."""
+"""Command line entry point for tools-shed."""
 
 from .launch import TOOLS, find_binary
 
 
 def main():
     """Print the tools this package installs and whether each binary is present."""
-    print("tool-shed tools:")
+    print("tools-shed tools:")
     for name in TOOLS:
         path = find_binary(name)
         status = str(path) if path is not None else "not built"

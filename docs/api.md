@@ -1,53 +1,53 @@
 # API Reference
 
-Generated from the docstrings in `tool_shed` by
+Generated from the docstrings in `tools_shed` by
 [mkdocstrings](https://mkdocstrings.github.io/). Anything without a docstring
 shows up blank — which is a useful nudge to write one.
 
-## `tool_shed`
+## `tools_shed`
 
-::: tool_shed
+::: tools_shed
 
-## `tool_shed.launch`
+## `tools_shed.launch`
 
-::: tool_shed.launch
+::: tools_shed.launch
 
-## `tool_shed.sync_chosen_files`
+## `tools_shed.sync_chosen_files`
 
-::: tool_shed.sync_chosen_files
+::: tools_shed.sync_chosen_files
 
-## `tool_shed.watch_run`
+## `tools_shed.watch_run`
 
-::: tool_shed.watch_run
+::: tools_shed.watch_run
 
-## `tool_shed.skeleton_dump`
+## `tools_shed.skeleton_dump`
 
-::: tool_shed.skeleton_dump
+::: tools_shed.skeleton_dump
 
-## `tool_shed.hash_tree`
+## `tools_shed.hash_tree`
 
-::: tool_shed.hash_tree
+::: tools_shed.hash_tree
 
-## `tool_shed.repo_map`
+## `tools_shed.repo_map`
 
-::: tool_shed.repo_map
+::: tools_shed.repo_map
 
-## `tool_shed.related`
+## `tools_shed.related`
 
-::: tool_shed.related
+::: tools_shed.related
 
-## `tool_shed.quiet_exec`
+## `tools_shed.quiet_exec`
 
-::: tool_shed.quiet_exec
+::: tools_shed.quiet_exec
 
-## `tool_shed.slice`
+## `tools_shed.slice`
 
-::: tool_shed.slice
+::: tools_shed.slice
 
-## `tool_shed.churn`
+## `tools_shed.churn`
 
-::: tool_shed.churn
+::: tools_shed.churn
 
-## `tool_shed.diff_syms`
+## `tools_shed.diff_syms`
 
-::: tool_shed.diff_syms
+::: tools_shed.diff_syms

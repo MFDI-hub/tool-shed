@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 
 import pytest
 
-from tool_shed.launch import find_binary
+from tools_shed.launch import find_binary
 
 if TYPE_CHECKING:
     from pathlib import Path

@@ -49,10 +49,11 @@ This creates `.venv` and installs runtime + development dependencies.
 ### Install as a user tool
 
 Published wheels are platform-specific (`py3-none-<platform>`) and bundle the C
-binaries for that OS/CPU. After a release:
+binaries for that OS/CPU. The PyPI project is `tools-shed` (`tool-shed`
+matches the existing project `toolshed`). After a release:
 
 ```shell
-uv tool install tool-shed
+uv tool install tools-shed
 sync_chosen_files --once
 ```
 

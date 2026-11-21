@@ -4,7 +4,9 @@
 # Standard project metadata. [project] must come first: TOML tables cannot be
 # reopened later in the file.
 [project]
-name = "tool-shed"
+# "tool-shed" ultranormalizes to the existing project "toolshed".
+# The extra s in this name survives that check.
+name = "tools-shed"
 description = "Portable C CLI tools, built for every platform."
 authors = [
     { name = "mfdi", email = "dogkanicen@gmail.com" },
@@ -44,7 +46,7 @@ dependencies = []
 
 [project.optional-dependencies]
 # Extras are optional *runtime* features your users opt into, e.g.
-#   pip install tool-shed[fast]
+#   pip install tools-shed[fast]
 # Start empty. deptry reports extras that nothing imports as unused (DEP002),
 # so only add one when the code actually uses it behind a guarded import.
 # fast = ["orjson>=3.10"]
@@ -57,17 +59,17 @@ Repository = "https://github.com/MFDI-hub/tool-shed"
 [project.scripts]
 # Prefer the module name (snake_case); hyphens in a console script name can
 # break the generated .exe shim on Windows.
-tool_shed = "tool_shed.cli:main"
-sync_chosen_files = "tool_shed.sync_chosen_files:main"
-watch_run = "tool_shed.watch_run:main"
-skeleton_dump = "tool_shed.skeleton_dump:main"
-hash_tree = "tool_shed.hash_tree:main"
-repo_map = "tool_shed.repo_map:main"
-related = "tool_shed.related:main"
-quiet_exec = "tool_shed.quiet_exec:main"
-slice = "tool_shed.slice:main"
-churn = "tool_shed.churn:main"
-diff_syms = "tool_shed.diff_syms:main"
+tools_shed = "tools_shed.cli:main"
+sync_chosen_files = "tools_shed.sync_chosen_files:main"
+watch_run = "tools_shed.watch_run:main"
+skeleton_dump = "tools_shed.skeleton_dump:main"
+hash_tree = "tools_shed.hash_tree:main"
+repo_map = "tools_shed.repo_map:main"
+related = "tools_shed.related:main"
+quiet_exec = "tools_shed.quiet_exec:main"
+slice = "tools_shed.slice:main"
+churn = "tools_shed.churn:main"
+diff_syms = "tools_shed.diff_syms:main"
 
 
 # ---- Dependency groups (PEP 735) ----
@@ -161,8 +163,8 @@ style = "pep440"
 bump = false
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/tool_shed"]
-artifacts = ["src/tool_shed/_native/*"]
+packages = ["src/tools_shed"]
+artifacts = ["src/tools_shed/_native/*"]
 
 [tool.hatch.build.targets.sdist]
 include = [
@@ -184,7 +186,7 @@ include = [
 # Typically 88 (black standard) or 100 (wide).
 line-length = 100
 # Dev/tests/scripts stay on a current Python. The installed launcher in
-# src/tool_shed/ is written for 3.6 (see per-file-ignores UP/TC).
+# src/tools_shed/ is written for 3.6 (see per-file-ignores UP/TC).
 target-version = "py311"
 # Also lint docstring code blocks and notebooks once you have them:
 # extend-include = ["*.ipynb"]
@@ -233,16 +235,16 @@ ignore = [
 # T201: CLIs and build scripts print status.
 # S603/S607: they also legitimately shell out to zig, uv, and the C binaries.
 # Installed launcher must parse on Python 3.6: no postponed annotations, no |.
-"src/tool_shed/**" = ["UP", "TC", "RUF005"]
-"src/tool_shed/cli.py" = ["T201"]
-"src/tool_shed/launch.py" = ["S603", "S606", "S607"]
+"src/tools_shed/**" = ["UP", "TC", "RUF005"]
+"src/tools_shed/cli.py" = ["T201"]
+"src/tools_shed/launch.py" = ["S603", "S606", "S607"]
 "scripts/**" = ["T201", "S603", "S607"]
 "devtools/**" = ["S603", "S607"]
 # An __init__.py re-exporting a public API looks like unused imports.
 "src/**/__init__.py" = ["F401"]
 
 [tool.ruff.lint.isort]
-known-first-party = ["tool_shed", "native_meta"]
+known-first-party = ["tools_shed", "native_meta"]
 combine-as-imports = true
 
 [tool.ruff.format]

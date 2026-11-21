@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for your interest in contributing to **tool-shed**!
+Thanks for your interest in contributing to **tools-shed**!
 
 ## Getting started
 

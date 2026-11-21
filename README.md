@@ -1,10 +1,12 @@
-# tool-shed
+# tools-shed
 
 A hub of command-line tools written in C and installed as Python console scripts.
 Zig cross-compiles each tool for every OS/CPU that can install a platform wheel
 (Windows, macOS, manylinux, musllinux, FreeBSD). A thin Python launcher runs the
 binary that matches this machine. The launcher supports Python 3.6 and newer.
-Install from PyPI as `tool-shed`.
+Install from PyPI as `tools-shed`. Warehouse rejects `tool-shed`:
+that name matches the existing project
+[`toolshed`](https://pypi.org/project/toolshed/).
 
 | Tool | Job |
 |---|---|
@@ -31,7 +33,7 @@ imports, shrink command output, slice a symbol, or list git hotspots.
 `quiet_exec` and `slice` do not use the walker.
 
 ```shell
-uv tool install tool-shed
+uv tool install tools-shed
 sync_chosen_files --once
 watch_run --dir src -- pytest -q
 ```

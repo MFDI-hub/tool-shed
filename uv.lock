@@ -1572,7 +1572,7 @@ wheels = [
 ]
 
 [[package]]
-name = "tool-shed"
+name = "tools-shed"
 source = { editable = "." }
 default-groups = ["dev", "docs"]
 

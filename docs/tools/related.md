@@ -85,5 +85,5 @@ uv run related --dir src --ext py --from-git origin/main
 Positional file as seed:
 
 ```shell
-uv run related src/tool_shed/launch.py --ext py
+uv run related src/tools_shed/launch.py --ext py
 ```

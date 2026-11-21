@@ -123,13 +123,13 @@ uv run python scripts/build_native.py --all    # every triple
 uv run python scripts/package_wheels.py        # py3-none-<platform> wheels
 ```
 
-The Python launcher (`tool_shed.launch`) looks for a binary in this order:
-`TOOL_SHED_BIN`, the packaged `tool_shed/_native/` directory, then
+The Python launcher (`tools_shed.launch`) looks for a binary in this order:
+`TOOLS_SHED_BIN`, the packaged `tools_shed/_native/` directory, then
 `dist/bin/<host-triple>/` in a source checkout. macOS binaries produced by Zig
 are unsigned.
 
 Add a new tool by creating `native/tools/<name>/main.c`, a row in
-`native/tools.toml`, a name in `TOOLS` in `src/tool_shed/launch.py`, a
+`native/tools.toml`, a name in `TOOLS` in `src/tools_shed/launch.py`, a
 console-script module that calls `launch("<name>")`, and a pytest module that
 skips until the host binary exists.
 
@@ -225,8 +225,8 @@ for item in tqdm(range(10)):
 Profiling tools are an opt-in group, so they never slow a normal setup:
 
 ```shell
-uv run --group profiling py-spy record -o profile.svg -- python -m tool_shed
-uv run python -m cProfile -o out.prof -m tool_shed
+uv run --group profiling py-spy record -o profile.svg -- python -m tools_shed
+uv run python -m cProfile -o out.prof -m tools_shed
 uv run --group profiling snakeviz out.prof
 ```
 

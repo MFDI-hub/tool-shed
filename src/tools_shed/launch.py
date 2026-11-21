@@ -105,10 +105,10 @@ def _candidate_files(tool, directory):
 def find_binary(tool):
     """Return the path to `tool`, or None if it is not on disk.
 
-    Search order: ``TOOL_SHED_BIN``, packaged ``tool_shed/_native/``,
+    Search order: ``TOOLS_SHED_BIN``, packaged ``tools_shed/_native/``,
     then ``dist/bin/<host-triple>/`` in a source checkout.
     """
-    env = os.environ.get("TOOL_SHED_BIN")
+    env = os.environ.get("TOOLS_SHED_BIN")
     if env:
         override = Path(env).expanduser()
         if override.is_file():
@@ -140,7 +140,7 @@ def resolve_binary(tool):
     raise SystemExit(
         "error: native binary for {0!r} not found.\n"
         "Build it with: {1}\n"
-        "Or set TOOL_SHED_BIN to the directory (or file) that contains it.".format(tool, hint)
+        "Or set TOOLS_SHED_BIN to the directory (or file) that contains it.".format(tool, hint)
     )
 
 
