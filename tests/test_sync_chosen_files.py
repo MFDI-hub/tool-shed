@@ -611,9 +611,7 @@ def test_max_files_and_max_file_bytes(sync_bin: Path, work: Path) -> None:
     )
     assert limited.returncode == 0, limited.stderr
     text = dump_text(out)
-    listed = [
-        line for line in text.replace("\\", "/").splitlines() if line.startswith("FILE: ")
-    ]
+    listed = [line for line in text.replace("\\", "/").splitlines() if line.startswith("FILE: ")]
     assert listed in (["FILE: a.py"], ["FILE: b.py"])
     skipped = run_sync(
         sync_bin,
