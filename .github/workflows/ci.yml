@@ -35,7 +35,7 @@ jobs:
 
       - name: Restore host binaries
         id: host-bin
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: dist/bin
           key: host-bin-zig-0.17.1-${{ hashFiles('native/**', 'scripts/build_native.py', 'scripts/native_meta.py') }}
